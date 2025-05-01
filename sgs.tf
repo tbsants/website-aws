@@ -38,13 +38,13 @@ resource "aws_security_group" "sg_srv" {
   description = "security group for website servers"
   vpc_id      = aws_vpc.this.id
 
-  ingress {
-    description = "Allow access to 443 port"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = [var.cidr_block]
-  }
+  # ingress {
+  #   description = "Allow access to 443 port"
+  #   from_port   = 443
+  #   to_port     = 443
+  #   protocol    = "tcp"
+  #   cidr_blocks = [var.cidr_block]
+  # }
 
   # ingress {
   #   description = "Allow access to 80 port"
@@ -54,13 +54,13 @@ resource "aws_security_group" "sg_srv" {
   #   cidr_blocks = [var.cidr_block]
   # }
 
-  ingress {
-    description = "Allow access to 22 port"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [var.cidr_block]
-  }
+  # ingress {
+  #   description = "Allow access to 22 port"
+  #   from_port   = 22
+  #   to_port     = 22
+  #   protocol    = "tcp"
+  #   cidr_blocks = [var.cidr_block]
+  # }
 
   egress {
     description = ""
@@ -85,6 +85,25 @@ resource "aws_security_group_rule" "allow_elb_to_srv" {
   description              = "Allow ELB to access port 80 on server SG"
 }
 
+resource "aws_security_group_rule" "allow_https" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  cidr_blocks       = [var.cidr_block]
+  security_group_id = aws_security_group.sg_srv.id
+  description       = "Allow access to 443 port"
+}
+
+resource "aws_security_group_rule" "allow_ssh" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = [var.cidr_block]
+  security_group_id = aws_security_group.sg_srv.id
+  description       = "Allow access to 22 port"
+}
 
 resource "aws_security_group" "sg_endpoint" {
   name        = "prd-endpoint-terraform"
