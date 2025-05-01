@@ -28,8 +28,8 @@ resource "aws_security_group" "sg_elb" {
   }
 
   tags = {
-    Name      = "prd-elb-terraform"
-    ManagedBy = "Terraform"
+    Name = "prd-elb-terraform"
+    #ManagedBy = "Terraform"
   }
 }
 
