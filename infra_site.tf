@@ -35,7 +35,7 @@ resource "aws_autoscaling_group" "this" {
   desired_capacity          = 2
   force_delete              = true
   vpc_zone_identifier = [data.terraform_remote_state.modulo-vpc.outputs.sg_elb,
-  data.terraform_remote_state.aws_subnet.subnet-priv2.id]
+  data.terraform_remote_state.modulo-vpc.outputs.subnet-priv2]
   launch_template {
     id      = aws_launch_template.this.id
     version = "$Latest"
@@ -93,7 +93,7 @@ resource "aws_lb_target_group" "this" {
   name     = "tg-website"
   port     = 80
   protocol = "HTTP"
-  vpc_id   = aws_vpc.this.id
+  vpc_id   = data.terraform_remote_state.modulo-vpc.outputs.aws_vpc
 }
 
 resource "aws_lb_listener" "this" {
