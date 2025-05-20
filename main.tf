@@ -10,7 +10,7 @@ terraform {
 
   backend "s3" {
     bucket = "projects-trfm-remote-state"
-    key    = "website-aws-infra/terraform.tfstate"
+    key    = "website-infra-aws/terraform.tfstate"
     region = "us-east-1"
   }
 }
@@ -23,5 +23,14 @@ provider "aws" {
       owner     = "tbsantos"
       managedby = "terraform"
     }
+  }
+}
+
+data "terraform_remote_state" "modulo-vpc" {
+  backend = "s3"
+  config = {
+    bucket = "projects-trfm-remote-state "
+    key    = "modulo-vpc/terraform.tfstate"
+    region = "us-east-1"
   }
 }
