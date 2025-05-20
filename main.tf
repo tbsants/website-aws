@@ -9,7 +9,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "projects-remote-state"
+    bucket = "projects-trfm-remote-state"
     key    = "website-aws-infra/terraform.tfstate"
     region = "us-east-1"
   }

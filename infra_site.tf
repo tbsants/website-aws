@@ -4,7 +4,7 @@ resource "aws_launch_template" "this" {
   instance_type          = "t2.micro"
   key_name               = aws_key_pair.key.key_name
   user_data              = base64encode(file("./userdata/userdata.sh"))
-  vpc_security_group_ids = [aws_security_group.sg_srv.id]
+  vpc_security_group_ids = [data.terraform_remote_state.aws_security_group.sg_srv.id]
   update_default_version = true
 
   # network_interfaces {
@@ -34,7 +34,8 @@ resource "aws_autoscaling_group" "this" {
   health_check_type         = "ELB"
   desired_capacity          = 2
   force_delete              = true
-  vpc_zone_identifier       = [aws_subnet.subnet-priv1.id, aws_subnet.subnet-priv2.id]
+  vpc_zone_identifier = [data.terraform_remote_state.aws_subnet.subnet-priv1.id,
+  data.terraform_remote_state.aws_subnet.subnet-priv2.id]
   launch_template {
     id      = aws_launch_template.this.id
     version = "$Latest"
@@ -72,7 +73,8 @@ resource "aws_lb" "website" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.sg_elb.id]
-  subnets            = [aws_subnet.subnet-priv1.id, aws_subnet.subnet-priv2.id]
+  subnets = [data.terraform_remote_state.aws_subnet.subnet-priv1.id,
+  data.terraform_remote_state.aws_subnet.subnet-priv2.id]
 
   enable_deletion_protection = false
 
