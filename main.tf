@@ -29,7 +29,7 @@ provider "aws" {
 data "terraform_remote_state" "modulo-vpc" {
   backend = "s3"
   config = {
-    bucket = "projects-trfm-remote-state "
+    bucket = "projects-trfm-remote-state"
     key    = "modulo-vpc/terraform.tfstate"
     region = "us-east-1"
   }
