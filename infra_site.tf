@@ -34,7 +34,7 @@ resource "aws_autoscaling_group" "this" {
   health_check_type         = "ELB"
   desired_capacity          = 2
   force_delete              = true
-  vpc_zone_identifier = [data.terraform_remote_state.modulo-vpc.outputs.sg_elb,
+  vpc_zone_identifier = [data.terraform_remote_state.modulo-vpc.outputs.subnet-priv1,
   data.terraform_remote_state.modulo-vpc.outputs.subnet-priv2]
   launch_template {
     id      = aws_launch_template.this.id
