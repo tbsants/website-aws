@@ -72,7 +72,7 @@ resource "aws_lb" "website" {
   name               = "elb-website"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [data.terraform_remote_state.modulo-vpc.outputs.sg_elb]
+  security_groups    = [data.terraform_remote_state.modulo-vpc.outputs.sg_elb.id]
   subnets = [data.terraform_remote_state.modulo-vpc.outputs.subnet-priv1,
   data.terraform_remote_state.modulo-vpc.outputs.subnet-priv2]
 
