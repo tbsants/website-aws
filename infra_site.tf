@@ -4,7 +4,7 @@ resource "aws_launch_template" "this" {
   instance_type          = "t2.micro"
   key_name               = aws_key_pair.key.key_name
   user_data              = base64encode(file("./userdata/userdata.sh"))
-  vpc_security_group_ids = [data.terraform_remote_state.modulo-vpc.outputs.sg_srv]
+  vpc_security_group_ids = [data.terraform_remote_state.modulo-vpc.outputs.sg_srv.id]
   update_default_version = true
 
   # network_interfaces {
