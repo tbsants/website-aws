@@ -1,6 +1,7 @@
 resource "aws_launch_template" "this" {
   name_prefix = "ltmpt_ubuntu"
   #image_id               = data.aws_ami.this.id
+  #image_id               = data.aws_ami.this.id
   image_id               = "ami-0ceb90f64febd1843"
   instance_type          = "t2.micro"
   key_name               = aws_key_pair.key.key_name
