@@ -7,6 +7,7 @@ resource "aws_launch_template" "this" {
   vpc_security_group_ids = [data.terraform_remote_state.modulo-vpc.outputs.sg_srv.id]
   update_default_version = true
 
+
   # network_interfaces {
   #   associate_public_ip_address = aws_lb_target_group.this
   #   device_index                = 0
