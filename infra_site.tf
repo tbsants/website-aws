@@ -8,7 +8,9 @@ resource "aws_launch_template" "this" {
   user_data              = base64encode(file("./userdata/userdata.sh"))
   vpc_security_group_ids = [data.terraform_remote_state.modulo-vpc.outputs.sg_srv.id]
   update_default_version = true
-  #iam_instance_profile   = aws_iam_instance_profile.ec2_profile.name
+  iam_instance_profile {
+    name = aws_iam_instance_profile.ec2_profile.name
+  }
 
 
 
