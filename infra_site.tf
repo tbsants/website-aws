@@ -1,7 +1,5 @@
 resource "aws_launch_template" "this" {
-  name_prefix = "ltmpt_ubuntu"
-  #image_id               = data.aws_ami.this.id
-  #image_id               = data.aws_ami.this.id
+  name_prefix            = "ltmpt_ubuntu"
   image_id               = "ami-0ceb90f64febd1843"
   instance_type          = "t2.micro"
   key_name               = aws_key_pair.key.key_name
@@ -81,7 +79,7 @@ resource "aws_lb" "website" {
   load_balancer_type = "application"
   security_groups    = [data.terraform_remote_state.modulo-vpc.outputs.sg_elb.id]
   subnets = [data.terraform_remote_state.modulo-vpc.outputs.subnet-priv1,
-  data.terraform_remote_state.modulo-vpc.outputs.subnet-priv2]
+  data.terraform_remote_state.modulo-vpc.outputs.subnet-priv2, data.terraform_remote_state.modulo-vpc.outputs.subnet-pub1]
 
   enable_deletion_protection = false
 
