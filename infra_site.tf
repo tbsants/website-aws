@@ -33,11 +33,11 @@ resource "aws_key_pair" "key" {
 
 resource "aws_autoscaling_group" "this" {
   name                      = "asg_website"
-  max_size                  = 3
-  min_size                  = 2
+  max_size                  = 0
+  min_size                  = 0
   health_check_grace_period = 60
   health_check_type         = "ELB"
-  desired_capacity          = 2
+  desired_capacity          = 0
   force_delete              = true
   vpc_zone_identifier = [data.terraform_remote_state.modulo-vpc.outputs.subnet-priv1,
   data.terraform_remote_state.modulo-vpc.outputs.subnet-priv2]
