@@ -79,7 +79,9 @@ resource "aws_lb" "website" {
   load_balancer_type = "application"
   security_groups    = [data.terraform_remote_state.modulo-vpc.outputs.sg_elb.id]
   subnets = [data.terraform_remote_state.modulo-vpc.outputs.subnet-pub1,
-  data.terraform_remote_state.modulo-vpc.outputs.subnet-pub2]
+    data.terraform_remote_state.modulo-vpc.outputs.subnet-pub2,
+    data.terraform_remote_state.modulo-vpc.outputs.subnet-priv1,
+  data.terraform_remote_state.modulo-vpc.outputs.subnet-priv2]
 
   enable_deletion_protection = false
 
