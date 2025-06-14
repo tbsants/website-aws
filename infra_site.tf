@@ -91,6 +91,7 @@ resource "aws_lb" "website" {
 
   tags = {
     Environment = "production"
+    ManagedBy   = "Terraform"
   }
 }
 
